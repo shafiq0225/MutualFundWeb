@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-
+  selectedComponent: any = 'NavHistory';
+  // navComponents = {
+  //   navHistoryComponent: 'NavHistory',
+  //   componentB: 'ComponentB',
+  //   componentC: 'ComponentC'
+  // };
 }

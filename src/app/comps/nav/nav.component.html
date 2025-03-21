@@ -1,3 +1,8 @@
 <div class="nav-container">
-    <app-nav-history></app-nav-history>
+    <mat-radio-group [(ngModel)]="selectedComponent">
+        <mat-radio-button [value]="'NavHistory'">Individual Nav History</mat-radio-button>
+        <mat-radio-button [value]="'ComponentB'">Component B</mat-radio-button>
+        <mat-radio-button [value]="'ComponentC'">Component C</mat-radio-button>
+      </mat-radio-group>
+    <app-nav-history *ngIf="selectedComponent === 'NavHistory'"></app-nav-history>
 </div>

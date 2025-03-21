@@ -17,3 +17,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mdc-line-ripple::before, .mdc-line-ripple::after {
   width: 0 !important;
 }
+.mat-internal-form-field>label {
+  font-size: 15px !important;
+}
