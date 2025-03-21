@@ -1,36 +1,3 @@
-<!-- <div class="container">
-  <div class="dropdown-container">
-    <label for="dropdown-search" class="dropdown-label">Fund Name</label>
-    <div class="custom-dropdown">
-      <input
-        type="text"
-        id="dropdown-search"
-        placeholder="Search Fund"
-        (focus)="openDropdown()"
-        (blur)="closeDropdown()"
-        (input)="filterFunds()"
-        [(ngModel)]="searchQuery"
-        class="dropdown-input"
-        autocomplete="off"
-      />
-      <button *ngIf="searchQuery" class="reset-btn" (click)="resetSearch()">
-        ✖
-      </button>
-      <div id="dropdown-list" class="dropdown-list" *ngIf="isDropdownOpen">
-        <div
-          *ngFor="let fund of filteredFunds"
-          (click)="selectedFund(fund)"
-          class="dropdown-item"
-        >
-          {{ fund.fundName }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="filteredFunds.length === 0" class="no-result">
-    <p>No results found.</p>
-  </div>
-</div> -->
 <div class="wrapper">
   <div class="title">Individual Nav History</div>
 
