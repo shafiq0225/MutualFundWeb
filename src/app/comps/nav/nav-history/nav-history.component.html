@@ -1,0 +1,141 @@
+<!-- <div class="container">
+  <div class="dropdown-container">
+    <label for="dropdown-search" class="dropdown-label">Fund Name</label>
+    <div class="custom-dropdown">
+      <input
+        type="text"
+        id="dropdown-search"
+        placeholder="Search Fund"
+        (focus)="openDropdown()"
+        (blur)="closeDropdown()"
+        (input)="filterFunds()"
+        [(ngModel)]="searchQuery"
+        class="dropdown-input"
+        autocomplete="off"
+      />
+      <button *ngIf="searchQuery" class="reset-btn" (click)="resetSearch()">
+        ✖
+      </button>
+      <div id="dropdown-list" class="dropdown-list" *ngIf="isDropdownOpen">
+        <div
+          *ngFor="let fund of filteredFunds"
+          (click)="selectedFund(fund)"
+          class="dropdown-item"
+        >
+          {{ fund.fundName }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="filteredFunds.length === 0" class="no-result">
+    <p>No results found.</p>
+  </div>
+</div> -->
+<div class="wrapper">
+  <div class="title">Individual Nav History</div>
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <!-- Dropdown 1 with search -->
+      <div class="column">
+        <mat-form-field class="small-dropdown">
+          <mat-label>Search Fund</mat-label>
+          <input matInput (input)="filterDropdown1($event)" />
+          <mat-select
+            formControlName="fundDropdown"
+            (selectionChange)="onFundChange($event.value)"
+            #fundSelect
+          >
+            <mat-option *ngIf="filteredOptions1.length === 0" disabled>
+              No results found
+            </mat-option>
+            <mat-option
+              *ngFor="let option of filteredOptions1"
+              [value]="option.fundId"
+            >
+              {{ option.fundName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Dropdown 2 with search -->
+        <mat-form-field class="small-dropdown">
+          <mat-label>Search Scheme</mat-label>
+          <input matInput (input)="filterDropdown2($event)" />
+          <mat-select formControlName="Schemedropdown" #schemeSelect>
+            <mat-option *ngIf="filteredOptions2.length === 0" disabled>
+              No results found
+            </mat-option>
+            <mat-option
+              *ngFor="let option of filteredOptions2"
+              [value]="option.schemeId"
+            >
+              {{ option.schemeName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="column">
+        <!-- Date Picker 1 -->
+        <mat-form-field>
+          <mat-label>Start Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            formControlName="startDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Date Picker 2 -->
+        <mat-form-field>
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="endDate" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="full-width">
+        <button mat-flat-button type="submit">GO</button>
+      </div>
+    </div>
+  </form>
+  <h2 class="fund-name">{{fundName}}</h2>
+  <h4>{{schemeName}}</h4>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    
+    <!-- Column 1 -->
+    <ng-container matColumnDef="serial">
+      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index">
+        {{ getSerialNumber(i) }}
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Column 2 -->
+    <ng-container matColumnDef="Date">
+      <mat-header-cell *matHeaderCellDef> NAV DATE </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.schemeDate}} </mat-cell>
+    </ng-container>
+  
+    <!-- Column 3 -->
+    <ng-container matColumnDef="Rate">
+      <mat-header-cell *matHeaderCellDef> NAV </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+    </ng-container>
+  
+    <!-- Table Header & Rows -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  
+  <!-- Pagination -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
