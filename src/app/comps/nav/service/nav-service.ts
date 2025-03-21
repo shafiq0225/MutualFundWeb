@@ -21,9 +21,15 @@ export class NavService {
       this.dataUrl + `visible-scheme?fundId=${fundId}`
     );
   }
-  getIndividualNav(fundId:string, schemeId: string, startDate: string, endDate: string): Observable<IndividualNav>{
+  getIndividualNav(
+    fundId: string,
+    schemeId: string,
+    startDate: string,
+    endDate: string
+  ): Observable<IndividualNav> {
     return this.http.get<IndividualNav>(
-      this.dataUrl + `GetIndividualNav?fundId=${fundId}&schemeId=${schemeId}&startDate=${startDate}&endDate=${endDate}`
+      this.dataUrl +
+        `GetIndividualNav?fundId=${fundId}&schemeId=${schemeId}&startDate=${startDate}&endDate=${endDate}`
     );
   }
 }

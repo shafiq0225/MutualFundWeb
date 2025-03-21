@@ -9,7 +9,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SchemeHistory } from '../models/SchemeHistory';
 
-
 @Component({
   selector: 'app-nav-history',
   standalone: false,
@@ -17,52 +16,29 @@ import { SchemeHistory } from '../models/SchemeHistory';
   styleUrl: './nav-history.component.css',
 })
 export class NavHistoryComponent implements OnInit, AfterViewInit {
-   ELEMENT_DATA: SchemeHistory[] = [
-    // {
-    //   schemeDate: '2024-11-11',
-    //   rate: 101.93,
-    // },
-    // {
-    //   schemeDate: '2025-02-25',
-    //   rate: 102.16,
-    // },
-    // {
-    //   schemeDate: '2024-11-11',
-    //   rate: 101.93,
-    // },
-    // {
-    //   schemeDate: '2025-02-25',
-    //   rate: 102.16,
-    // },
-    // {
-    //   schemeDate: '2024-11-11',
-    //   rate: 101.93,
-    // },
-    // {
-    //   schemeDate: '2025-02-25',
-    //   rate: 102.16,
-    // },
-  ];
-  constructor(private navService: NavService) {}
+  filteredFunds: Fund[] = [];
+  filteredSchemes: Scheme[] = [];
+  fundName: string | undefined;
+  schemeName: string | undefined;
+  ELEMENT_DATA: SchemeHistory[] = [];
+
+  constructor(private navService: NavService) { }
+
   @ViewChild('fundSelect') fundSelect!: MatSelect;
   @ViewChild('schemeSelect') schemeSelect!: MatSelect;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   displayedColumns: string[] = ['serial', 'Date', 'Rate'];
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
 
   ngOnInit(): void {
     this.navService.getFunds().subscribe((data: Fund[]) => {
-      this.funds = data;
-      this.options1 = data;
-      this.filteredFunds = [...this.funds];
-      this.filteredOptions1 = [...this.options1];
+      this.fundOptions = data;
+      this.filteredFunds = [...this.fundOptions];
     });
   }
 
   ngAfterViewInit() {
-    // setTimeout(() => {
-    //   this.stateSelect.open(); // Automatically open dropdown
-    // }, 500); // Add a slight delay to ensure rendering is complete
     this.dataSource.paginator = this.paginator;
   }
 
@@ -72,48 +48,6 @@ export class NavHistoryComponent implements OnInit, AfterViewInit {
     return pageIndex * pageSize + index + 1;
   }
 
-  searchQuery = '';
-  isDropdownOpen = false;
-  isSchemeDropdownOpen = false;
-  funds: Fund[] = [];
-  filteredFunds: Fund[] = [];
-  filteredOptions1: Fund[] = [];
-  filteredOptions2: Scheme[] = [];
-  fundName: string | undefined;
-  schemeName: string | undefined;
-  openDropdown() {
-    this.isDropdownOpen = true;
-    if (this.filteredFunds.length == 0) {
-      this.isDropdownOpen = false;
-    }
-  }
-
-  closeDropdown() {
-    setTimeout(() => (this.isDropdownOpen = false), 200);
-  }
-
-  filterFunds() {
-    this.isDropdownOpen = true;
-    this.filteredFunds = this.funds.filter((fund) =>
-      fund.fundName.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-    if (this.filteredFunds.length == 0) {
-      this.isDropdownOpen = false;
-    }
-  }
-
-  selectedFund(fund: Fund) {
-    this.searchQuery = fund.fundName;
-    alert(fund.fundId);
-    this.isDropdownOpen = false;
-  }
-
-  resetSearch() {
-    this.searchQuery = '';
-    this.filteredFunds = [...this.funds];
-    this.isDropdownOpen = true;
-  }
-
   searchForm = new FormGroup({
     fundDropdown: new FormControl(),
     Schemedropdown: new FormControl(''),
@@ -121,21 +55,21 @@ export class NavHistoryComponent implements OnInit, AfterViewInit {
     endDate: new FormControl(''),
   });
 
-  options1: Fund[] = [];
-  options2: Scheme[] = [];
+  fundOptions: Fund[] = [];
+  schemeOptions: Scheme[] = [];
 
-  filterDropdown1(event: Event) {
+  fundDropdown(event: Event) {
     this.fundSelect.open();
     const inputValue = (event.target as HTMLInputElement).value;
-    this.filteredOptions1 = this.options1.filter((option) =>
+    this.filteredFunds = this.fundOptions.filter((option) =>
       option.fundName.toLowerCase().includes(inputValue.toLowerCase())
     );
   }
 
-  filterDropdown2(event: Event) {
+  schemeDropdown(event: Event) {
     this.schemeSelect.open();
     const inputValue = (event.target as HTMLInputElement).value;
-    this.filteredOptions2 = this.options2.filter((option) =>
+    this.filteredSchemes = this.schemeOptions.filter((option) =>
       option.schemeName.toLowerCase().includes(inputValue.toLowerCase())
     );
   }
@@ -155,25 +89,18 @@ export class NavHistoryComponent implements OnInit, AfterViewInit {
     const schemeId = this.searchForm.value.Schemedropdown;
 
     this.navService
-      .getIndividualNav(fundId, schemeId!, formattedStartDate, formattedEndDate)
-      .subscribe((response: IndividualNav) => {
+      .getIndividualNav(fundId, schemeId!, formattedStartDate, formattedEndDate).subscribe((response: IndividualNav) => {
         this.fundName = response.fundName;
         this.schemeName = response.schemeName;
-       //this.ELEMENT_DATA = response.schemeHistory
-       console.log(response.schemeHistory);
-       
-       this.ELEMENT_DATA = response.schemeHistory
-       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+        this.ELEMENT_DATA = response.schemeHistory;
+        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       });
-      console.log(this.ELEMENT_DATA);
-    console.log(this.searchForm.value);
   }
 
   onFundChange(selectedFundId: string) {
     this.navService.getScheme(selectedFundId).subscribe((data: Scheme[]) => {
-      this.options2 = data;
-      this.filteredOptions2 = [...this.options2];
+      this.schemeOptions = data;
+      this.filteredSchemes = [...this.schemeOptions];
     });
-    this.isSchemeDropdownOpen = true;
   }
 }

@@ -7,17 +7,17 @@
       <div class="column">
         <mat-form-field class="small-dropdown">
           <mat-label>Search Fund</mat-label>
-          <input matInput (input)="filterDropdown1($event)" />
+          <input matInput (input)="fundDropdown($event)" />
           <mat-select
             formControlName="fundDropdown"
             (selectionChange)="onFundChange($event.value)"
             #fundSelect
           >
-            <mat-option *ngIf="filteredOptions1.length === 0" disabled>
+            <mat-option *ngIf="filteredFunds.length === 0" disabled>
               No results found
             </mat-option>
             <mat-option
-              *ngFor="let option of filteredOptions1"
+              *ngFor="let option of filteredFunds"
               [value]="option.fundId"
             >
               {{ option.fundName }}
@@ -28,13 +28,13 @@
         <!-- Dropdown 2 with search -->
         <mat-form-field class="small-dropdown">
           <mat-label>Search Scheme</mat-label>
-          <input matInput (input)="filterDropdown2($event)" />
+          <input matInput (input)="schemeDropdown($event)" />
           <mat-select formControlName="Schemedropdown" #schemeSelect>
-            <mat-option *ngIf="filteredOptions2.length === 0" disabled>
+            <mat-option *ngIf="filteredSchemes.length === 0" disabled>
               No results found
             </mat-option>
             <mat-option
-              *ngFor="let option of filteredOptions2"
+              *ngFor="let option of filteredSchemes"
               [value]="option.schemeId"
             >
               {{ option.schemeName }}
