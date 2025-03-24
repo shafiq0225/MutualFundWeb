@@ -20,3 +20,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-internal-form-field>label {
   font-size: 15px !important;
 }
+.mat-drawer-transition .mat-drawer-content{
+  width: 60% !important;
+}

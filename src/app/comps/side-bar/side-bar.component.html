@@ -1,19 +1,39 @@
-<aside class="sidebar">
-    <div class="logo">
-        <span>⭐</span>
-        <h2>Starpath</h2>
-    </div>
-    <nav>
-        <ul>
-            <li class="active"><i class="bi bi-grid"></i><span>Dashboard</span></li>
-            <li><i class="bi bi-box"></i><span>Products</span></li>
-            <li><i class="bi bi-bag"></i><span>Orders</span></li>
-            <li><i class="bi bi-bar-chart"></i><span>Statistics</span></li>
-            <li><i class="bi bi-star"></i><span>Reviews</span></li>
-            <li><i class="bi bi-people"></i><span>Customers</span></li>
-            <li><i class="bi bi-arrow-left-right"></i><span>Transactions</span></li>
-            <li><i class="bi bi-gear"></i><span>Settings</span></li>
-            <li><i class="bi bi-person"></i><span>Profile</span></li>
-        </ul>
-    </nav>
-</aside>
+<mat-sidenav-container class="sidenav-container">
+    
+    <mat-sidenav mode="side" opened class="sidebar">
+      <h3 class="logo">⭐ Starpath</h3>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/home" routerLinkActive="active">
+          <mat-icon>grid_view</mat-icon> Dashboard
+        </a>
+        <a mat-list-item routerLink="/navdetails" routerLinkActive="active">
+          <mat-icon>category</mat-icon> Nav
+        </a>
+        <a mat-list-item routerLink="/navmgmt" routerLinkActive="active">
+          <mat-icon>shopping_bag</mat-icon>Nav Management
+        </a>
+        <!--  <a mat-list-item routerLink="/statistics" routerLinkActive="active">
+          <mat-icon>bar_chart</mat-icon> Statistics
+        </a>
+        <a mat-list-item routerLink="/reviews" routerLinkActive="active">
+          <mat-icon>star</mat-icon> Reviews
+        </a>
+        <a mat-list-item routerLink="/customers" routerLinkActive="active">
+          <mat-icon>groups</mat-icon> Customers
+        </a>
+        <a mat-list-item routerLink="/transactions" routerLinkActive="active">
+          <mat-icon>sync_alt</mat-icon> Transactions
+        </a>
+        <a mat-list-item routerLink="/settings" routerLinkActive="active">
+          <mat-icon>settings</mat-icon> Settings
+        </a>
+        <a mat-list-item routerLink="/profile" routerLinkActive="active">
+          <mat-icon>person</mat-icon> Profile
+        </a> -->
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

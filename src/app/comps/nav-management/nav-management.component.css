@@ -1,0 +1,29 @@
+.container {
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+}
+
+.search-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.toggle-container {
+  margin-left: auto;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-paginator {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}

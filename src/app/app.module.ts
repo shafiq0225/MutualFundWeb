@@ -18,6 +18,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
+import { HomeComponent } from './comps/home/home.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { NavManagementComponent } from './comps/nav-management/nav-management.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 @NgModule({
   declarations: [
@@ -25,7 +35,9 @@ import { MatRadioModule } from '@angular/material/radio';
     SideBarComponent,
     NavComponent,
     NavHistoryComponent,
-    InputEllipsisPipe
+    InputEllipsisPipe,
+    HomeComponent,
+    NavManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +53,15 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatCardModule,
+    CdkAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
